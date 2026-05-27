@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Expenses</title>
+
+    <link rel="stylesheet"
+    href="/static/style.css">
+
+</head>
+
+<body onload="loadExpenses()"> 
+
+<div class="container">
+
+    <div class="top-bar">
+
+    <h1>Expense Manager</h1>
+
+    <div>
+
+        <button class="dashboard-btn"
+        onclick="window.location='/dashboard.html'">
+
+            Dashboard
+
+        </button>
+
+        <button class="logout-btn"
+        onclick="logout()">
+
+            Logout
+
+        </button>
+
+    </div>
+
+</div>
+
+    </div>
+
+    <input type="hidden" id="expenseId">
+
+    <div class="form-grid">
+
+        <input type="text"
+        id="title"
+        placeholder="Expense Title">
+
+        <input type="number"
+        id="amount"
+        placeholder="Amount">
+
+        <select id="category">
+
+            <option>Food</option>
+            <option>Transport</option>
+            <option>Shopping</option>
+            <option>Health</option>
+            <option>Education</option>
+            <option>Entertainment</option>
+            <option>Other</option>
+
+        </select>
+
+        <input type="date" id="date">
+
+        <input type="text"
+        id="note"
+        placeholder="Note"
+        class="full">
+
+    </div>
+
+    <button onclick="saveExpense()">
+        Save Expense
+    </button>
+    <div class="search-box">
+
+    <input 
+        type="text" 
+        id="searchInput"
+        placeholder="Search by title, amount, category or date"
+        onkeyup="searchExpenses()"
+    >
+
+</div>
+
+    <h2>Expenses List</h2>
+
+    <div id="expenseTree"></div>
+    
+</div>
+
+<script src="/static/script.js"></script>
+
+</body>
+
+</html>
+

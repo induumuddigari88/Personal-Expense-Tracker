@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Register</title>
+
+    <link rel="stylesheet"
+    href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="container" style="max-width:450px;">
+
+    <h1>Create Account</h1>
+
+    <input
+        type="text"
+        id="username"
+        placeholder="Enter Username"
+    >
+
+    <input
+        type="email"
+        id="email"
+        placeholder="Enter Email"
+    >
+
+    <input
+        type="password"
+        id="password"
+        placeholder="Enter Password"
+    >
+
+    <input
+        type="password"
+        id="confirm"
+        placeholder="Confirm Password"
+    >
+
+    <button onclick="register()">
+        Register
+    </button>
+
+    <p id="message"
+    style="text-align:center;"></p>
+
+    <p>
+        Already have an account?
+        <a href="/">
+            Login
+        </a>
+    </p>
+
+</div>
+
+<script>
+
+const API = "http://127.0.0.1:5000"
+
+async function register(){
+
+    let username =
+        document.getElementById('username').value.trim()
+
+    let email =
+        document.getElementById('email').value.trim()
+
+    let password =
+        document.getElementById('password').value.trim()
+
+    let confirm =
+        document.getElementById('confirm').value.trim()
+
+    let message =
+        document.getElementById('message')
+
+    message.innerHTML = ""
+
+    // ---------------- VALIDATION ----------------
+
+    if(
+        username === "" ||
+        email === "" ||
+        password === "" ||
+        confirm === ""
+    ){
+
+        message.style.color = "red"
+
+        message.innerHTML =
+            "Please fill all fields"
+
+        return
+    }
+
+    if(password !== confirm){
+
+        message.style.color = "red"
+
+        message.innerHTML =
+            "Passwords do not match"
+
+        return
+    }
+
+    try{
+
+        let response = await fetch(`${API}/register`, {
+
+            method:'POST',
+
+            headers:{
+                'Content-Type':'application/json'
+            },
+
+            credentials:'include',
+
+            body:JSON.stringify({
+                username,
+                email,
+                password
+            })
+
+        })
+
+        let data = await response.json()
+
+        // ---------------- SUCCESS ----------------
+
+        if(response.status === 201){
+
+            message.style.color = "green"
+
+            message.innerHTML =
+                data.message
+
+            setTimeout(()=>{
+
+                window.location = "/"
+
+            },1500)
+
+        }
+
+        // ---------------- ERROR ----------------
+
+        else{
+
+            message.style.color = "red"
+
+            message.innerHTML =
+                data.message
+        }
+
+    }
+
+    catch(error){
+
+        console.log(error)
+
+        message.style.color = "red"
+
+        message.innerHTML =
+            "Server Error"
+    }
+}
+
+</script>
+
+<script src="/static/script.js"></script>
+
+</body>
+
+</html>

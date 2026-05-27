@@ -1,0 +1,44 @@
+Personal Expense Tracker - (Explanation)
+
+Q) 1. What is a foreign key and what does ON DELETE CASCADE do in your expenses table?
+
+A foreign key connects two tables in the database. In this project, 'user_id' in the 'expenses' table is connected to the 'id' in the 'users' table. This makes sure every expense belongs to a user.
+
+ON DELETE CASCADE` means if a user is deleted, all their expenses are automatically deleted too.
+
+
+
+
+Q) 2. How does your backend make sure User A cannot see User B's expenses?
+
+After login, the user’s ID is stored in the session. Every expense query checks the logged-in user’s ID using:
+
+sql id="msh0ec"
+WHERE user_id = session['user_id']
+
+So users can only view or manage their own expenses.
+
+
+
+
+Q) 3. What SQL query did you use for the category summary on the dashboard?
+
+sql id="l29g3y"
+SELECT category, SUM(amount) AS total
+FROM expenses
+WHERE user_id = %s
+GROUP BY category;
+
+
+--> filters expenses for the logged-in user only
+--> groups expenses by category
+--> calculates the total amount spent in each category
+--> displays categories in descending order based on total spending
+
+
+
+Q) 4. What was the hardest part of this task and how did you solve it?
+
+The hardest part was showing only the logged-in user’s expenses and updating the data without refreshing the page.
+
+I solved this by using session checking in every query and using JavaScript 'fetch()' to update the UI dynamically.

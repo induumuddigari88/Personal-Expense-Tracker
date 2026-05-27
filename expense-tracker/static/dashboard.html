@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet"
+    href="/static/style.css">
+
+</head>
+
+<body onload="loadDashboard()">
+
+<div class="container">
+
+    <div class="top-bar">
+
+        <h1 id="welcome">
+            Welcome
+        </h1>
+
+        <div>
+
+            <button class="dashboard-btn"
+            onclick="window.location='/expenses.html'">
+                Expenses
+            </button>
+
+            <button class="logout-btn"
+            onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="flex">
+
+        <div class="card">
+            <h3>Total Amount</h3>
+            <p id="total">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Highest Expense</h3>
+            <p id="highest">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Expenses</h3>
+            <p id="count">0</p>
+        </div>
+
+    </div>
+
+    <h2>Category Breakdown</h2>
+
+    <div id="categories"></div>
+
+</div>
+
+<script src="/static/script.js"></script>
+
+</body>
+
+</html>
